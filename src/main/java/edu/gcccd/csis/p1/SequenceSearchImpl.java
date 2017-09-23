@@ -11,6 +11,10 @@ public class SequenceSearchImpl extends SequenceSearch {
     @Override
     public String[] getAllTaggedSequences() {
 
+        // This worked without editing for the getAllTaggedSequencesEqualDelimiters Test
+        // I think it worked because I used the length of the tags
+        // Need to go back and test for learning
+
         // Create variables and array
         int endingLocation;
         String[] results = new String[0];
