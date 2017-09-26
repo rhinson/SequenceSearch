@@ -83,34 +83,47 @@ public class SequenceSearchImpl extends SequenceSearch {
     public String toString() {
 
         // Create variables and array
-        String result = null;
-        int endingLocation = 0;
-        int startingLocation = 0;
+        String result;
 
-        while (startingLocation >= 0) {
-
-            startingLocation = this.content.indexOf(this.startTag, startingLocation);
-
-            // Seems like nested if statements are not the cleanest method to use
-            if (startingLocation >= 0) {
-                // Is checking for null the cleanest way to start this?
-                if (result == null) {
-                    // Hardcoding 0 here seems like I should use something else
-                    result = this.content.substring(0,startingLocation);
-                }
-                else {
-                    result = result + this.content.substring(endingLocation + this.endTag.length(),startingLocation);
-                }
-                endingLocation = this.content.indexOf(this.endTag, startingLocation + this.startTag.length());
-                result = result + this.content.substring(startingLocation + this.startTag.length(),endingLocation);
-                startingLocation = endingLocation + this.endTag.length();
-            }
-            else {
-                result = result + this.content.substring(endingLocation + this.endTag.length(),this.content.length());
-            }
-        }
+        result = this.content.replace(this.startTag,"");
+        result = result.replace(this.endTag,"");
 
         return result;
     }
+
+      // Original toString method.  It worked, but so much more work
+//    @Override
+//    public String toString() {
+//
+//        // Create variables and array
+//        String result = null;
+//        int endingLocation = 0;
+//        int startingLocation = 0;
+//
+//        while (startingLocation >= 0) {
+//
+//            startingLocation = this.content.indexOf(this.startTag, startingLocation);
+//
+//            // Seems like nested if statements are not the cleanest method to use
+//            if (startingLocation >= 0) {
+//                // Is checking for null the cleanest way to start this?
+//                if (result == null) {
+//                    // Hardcoding 0 here seems like I should use something else
+//                    result = this.content.substring(0,startingLocation);
+//                }
+//                else {
+//                    result = result + this.content.substring(endingLocation + this.endTag.length(),startingLocation);
+//                }
+//                endingLocation = this.content.indexOf(this.endTag, startingLocation + this.startTag.length());
+//                result = result + this.content.substring(startingLocation + this.startTag.length(),endingLocation);
+//                startingLocation = endingLocation + this.endTag.length();
+//            }
+//            else {
+//                result = result + this.content.substring(endingLocation + this.endTag.length(),this.content.length());
+//            }
+//        }
+//
+//        return result;
+//    }
 
 }
