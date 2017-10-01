@@ -34,11 +34,16 @@ public class SequenceSearchImpl extends SequenceSearch {
                 // System.out.println(content.substring(startingLocation + startTag.length(), endingLocation));
 
                 // Found good pairing if endingLocation is before altStartingLocation
-                // Also good pairing if altStartingLocation is not found and endingLocation is found
-                if ((altStartingLocation > endingLocation) || (altStartingLocation == -1 && endingLocation != -1)) {
-                    results = SequenceSearch.adds(results, this.content.substring(startingLocation + this.startTag.length(), endingLocation));
-                    startingLocation = endingLocation + this.endTag.length();
-                    arraySlot = ++arraySlot;
+                // Allow to pass through if we found no alternate starting location
+                if ((altStartingLocation >= endingLocation) || (altStartingLocation == -1)) {
+                    // Couldn't find an ending location
+                    if ((endingLocation == -1)) {
+                        startingLocation = altStartingLocation;
+                    } else {
+                        results = SequenceSearch.adds(results, this.content.substring(startingLocation + this.startTag.length(), endingLocation));
+                        startingLocation = endingLocation + this.endTag.length();
+                        arraySlot = ++arraySlot;
+                    }
                 } else {
                     // Didn't find a good pairing at last starting location, move forward to alternate location
                     startingLocation = altStartingLocation;

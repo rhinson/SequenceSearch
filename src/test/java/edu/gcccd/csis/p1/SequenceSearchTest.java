@@ -45,7 +45,7 @@ public class SequenceSearchTest {
             "GNU General Public License (GPL). Oracle continues this project called OpenJDK.";
 
     // The here tested implementation is in the abstract class and this test is shown here, only for clarification
-    //@Test
+    @Test
     public void constructionTest() {
         String s = "abc def ghi";
         // tags can have different length;
@@ -68,7 +68,7 @@ public class SequenceSearchTest {
     }
 
     // Finding all text sequences that are enclosed in beginning and end tags.
-    //@Test
+    @Test
     public void getAllTaggedSequences() throws Exception {
 
         final String d0 = "<";
@@ -97,7 +97,7 @@ public class SequenceSearchTest {
     }
 
     // Finding the longest of all tagged sequences.
-    //@Test
+    @Test
     public void getLongestTaggedSequence() throws Exception {
         String d0 = "{{";
         String d1 = "}}";
@@ -121,7 +121,7 @@ public class SequenceSearchTest {
     }
 
     // Making sure that all sequences are found, even if start and end tags look the same.
-    //@Test
+    @Test
     public void getAllTaggedSequencesEqualDelimiters() throws Exception {
 
         String d = "#";
@@ -151,7 +151,7 @@ public class SequenceSearchTest {
     }
 
     // Interface Implementation
-    //@Test
+    @Test
     public void testPresentable() {
         String d = "###";
         String s = String.format(s2, d, d, d, d, d, d);
@@ -161,7 +161,7 @@ public class SequenceSearchTest {
     }
 
     // ToString prints the content, with all tags removed.
-    //@Test
+    @Test
     public void testToString() {
         String d0 = "<";
         String d1 = "/>";
@@ -175,7 +175,7 @@ public class SequenceSearchTest {
     // This is the extra test to run
     // Making sure that all sequences are found, even if the delimiter syntax is unexpected.
     // I.e. a tagged sequence must not contain a start or end tag.
-    //@Test
+    @Test
     public void getAllTaggedSequencesUnexpectedSyntax() throws Exception {
         String d0 = "{{";
         String d1 = "}}";
