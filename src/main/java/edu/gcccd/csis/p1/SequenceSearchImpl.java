@@ -19,20 +19,33 @@ public class SequenceSearchImpl extends SequenceSearch {
         int endingLocation;
         String[] results = new String[0];
         int startingLocation = 0;
+        int altStartingLocation;
         int arraySlot = 0;
 
         while (startingLocation >= 0) {
 
             startingLocation = this.content.indexOf(this.startTag, startingLocation);
+            // Create alternate starting location in case tags are out of order
+            altStartingLocation = this.content.indexOf(this.startTag, startingLocation + this.startTag.length());
 
             if (startingLocation >= 0) {
-                endingLocation = this.content.indexOf(this.endTag, startingLocation + startTag.length());
+                endingLocation = this.content.indexOf(this.endTag, startingLocation + this.startTag.length());
                 // Uncomment to see results while running through
                 // System.out.println(content.substring(startingLocation + startTag.length(), endingLocation));
-                results = SequenceSearch.adds(results, content.substring(startingLocation + startTag.length(), endingLocation));
 
-                startingLocation = endingLocation + endTag.length();
-                arraySlot = ++arraySlot;
+                // Found good pairing if endingLocation is before altStartingLocation
+                // Also good pairing if altStartingLocation is not found and endingLocation is found
+                if ((altStartingLocation > endingLocation) || (altStartingLocation == -1 && endingLocation != -1)) {
+                    results = SequenceSearch.adds(results, this.content.substring(startingLocation + this.startTag.length(), endingLocation));
+                    startingLocation = endingLocation + this.endTag.length();
+                    arraySlot = ++arraySlot;
+                } else {
+                    // Didn't find a good pairing at last starting location, move forward to alternate location
+                    startingLocation = altStartingLocation;
+                }
+
+
+
             }
         }
 
